@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "nome": "Alternador 12V 90A",
+    "codigo": "ALT001",
+    "valor_unitario": 450.00,
+    "quantidade_estoque": 5,
+    "minimo_alerta": 2,
+    "descricao": "Alternador 12V 90A universal para veículos leves"
+  },
+  {
+    "id": 2,
+    "nome": "Bateria Moura 60Ah",
+    "codigo": "BAT060",
+    "valor_unitario": 380.00,
+    "quantidade_estoque": 12,
+    "minimo_alerta": 5,
+    "descricao": "Bateria automotiva 60Ah - 12 meses de garantia"
+  },
+  {
+    "id": 3,
+    "nome": "Farol H7 Osram",
+    "codigo": "FAR007",
+    "valor_unitario": 55.00,
+    "quantidade_estoque": 1,
+    "minimo_alerta": 3,
+    "descricao": "Lâmpada farol H7 55W - alta performance"
+  },
+  {
+    "id": 4,
+    "nome": "Motor de Arranque Bosch",
+    "codigo": "MOT001",
+    "valor_unitario": 620.00,
+    "quantidade_estoque": 3,
+    "minimo_alerta": 2,
+    "descricao": "Motor de partida 12V - linha pesada"
+  },
+  {
+    "id": 5,
+    "nome": "Bobina de Ignição NGK",
+    "codigo": "BOB001",
+    "valor_unitario": 185.00,
+    "quantidade_estoque": 8,
+    "minimo_alerta": 4,
+    "descricao": "Bobina de ignição universal - alta tensão"
+  },
+  {
+    "id": 6,
+    "nome": "Regulador de Voltagem",
+    "codigo": "REG001",
+    "valor_unitario": 95.00,
+    "quantidade_estoque": 2,
+    "minimo_alerta": 5,
+    "descricao": "Regulador 14V para alternadores"
+  },
+  {
+    "id": 7,
+    "nome": "Chicote Elétrico Universal",
+    "codigo": "CHI001",
+    "valor_unitario": 320.00,
+    "quantidade_estoque": 15,
+    "minimo_alerta": 3,
+    "descricao": "Kit chicote completo 8 vias"
+  },
+  {
+    "id": 8,
+    "nome": "Sensor MAP",
+    "codigo": "SEN001",
+    "valor_unitario": 145.00,
+    "quantidade_estoque": 6,
+    "minimo_alerta": 4,
+    "descricao": "Sensor de pressão absoluta do coletor"
+  },
+  {
+    "id": 9,
+    "nome": "Central de Injeção Magneti",
+    "codigo": "INJ001",
+    "valor_unitario": 780.00,
+    "quantidade_estoque": 0,
+    "minimo_alerta": 2,
+    "descricao": "Central eletrônica de injeção - linha Fiat"
+  },
+  {
+    "id": 10,
+    "nome": "Relé 5 Pinos Universal",
+    "codigo": "REL005",
+    "valor_unitario": 18.50,
+    "quantidade_estoque": 45,
+    "minimo_alerta": 20,
+    "descricao": "Relé auxiliar 12V 40A"
+  }
+]

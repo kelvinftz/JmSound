@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "produto_id": 1,
+    "tipo": "entrada",
+    "quantidade": 5,
+    "referencia_pedido": 1,
+    "data": "2024-10-25T10:30:00",
+    "usuario": "admin"
+  },
+  {
+    "id": 2,
+    "produto_id": 2,
+    "tipo": "entrada",
+    "quantidade": 10,
+    "referencia_pedido": 3,
+    "data": "2024-10-29T09:15:00",
+    "usuario": "admin"
+  },
+  {
+    "id": 3,
+    "produto_id": 10,
+    "tipo": "entrada",
+    "quantidade": 50,
+    "referencia_pedido": 3,
+    "data": "2024-10-29T09:15:00",
+    "usuario": "admin"
+  },
+  {
+    "id": 4,
+    "produto_id": 4,
+    "tipo": "saida",
+    "quantidade": 1,
+    "referencia_pedido": 4,
+    "data": "2024-10-30T16:45:00",
+    "usuario": "admin"
+  }
+]

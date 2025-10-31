@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "tipo": "compra",
+    "data": "2024-10-25T10:30:00",
+    "status": "pronto",
+    "itens": [
+      {
+        "produto_id": 1,
+        "quantidade": 5,
+        "valor_unitario": 450.00
+      }
+    ],
+    "observacoes": "Fornecedor ABC Peças - NF 12345"
+  },
+  {
+    "id": 2,
+    "tipo": "venda",
+    "data": "2024-10-28T14:20:00",
+    "status": "pendente",
+    "itens": [
+      {
+        "produto_id": 3,
+        "quantidade": 2,
+        "valor_unitario": 55.00
+      }
+    ],
+    "observacoes": "Cliente João Silva - Fiat Uno"
+  },
+  {
+    "id": 3,
+    "tipo": "compra",
+    "data": "2024-10-29T09:15:00",
+    "status": "pronto",
+    "itens": [
+      {
+        "produto_id": 2,
+        "quantidade": 10,
+        "valor_unitario": 380.00
+      },
+      {
+        "produto_id": 10,
+        "quantidade": 50,
+        "valor_unitario": 18.50
+      }
+    ],
+    "observacoes": "Fornecedor Distribuidora XYZ"
+  },
+  {
+    "id": 4,
+    "tipo": "venda",
+    "data": "2024-10-30T16:45:00",
+    "status": "pronto",
+    "itens": [
+      {
+        "produto_id": 4,
+        "quantidade": 1,
+        "valor_unitario": 620.00
+      }
+    ],
+    "observacoes": "Cliente Maria Costa - VW Gol"
+  },
+  {
+    "id": 5,
+    "tipo": "venda",
+    "data": "2024-10-31T11:00:00",
+    "status": "pendente",
+    "itens": [
+      {
+        "produto_id": 5,
+        "quantidade": 3,
+        "valor_unitario": 185.00
+      },
+      {
+        "produto_id": 8,
+        "quantidade": 2,
+        "valor_unitario": 145.00
+      }
+    ],
+    "observacoes": "Cliente Auto Center Norte - Pedido urgente"
+  }
+]
