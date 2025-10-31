@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>JmSound - Alertas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #555; }
+  </style>
+</head>
+
+<script>
+/*
+  Sidebar Active Helper
+  - Detecta automaticamente o link do sidebar que corresponde ao caminho atual (location.pathname)
+  - Aplica classes "ativo" (bg + text) ao link correto
+  - Remove classes dos demais links
+  - Garante cor nos ícones (SVG inline ou <i class="fas ...">) para manter ícones visíveis
+  HOW TO: cole este script em todas as páginas (antes do </body>)
+*/
+
+(function () {
+  // Seletor dos links do sidebar - ajuste se sua estrutura for diferente
+  const sidebarSelector = 'aside nav a'; // alvo: <aside> <nav> <a href="...">
+  const links = Array.from(document.querySelectorAll(sidebarSelector));
+  if (!links.length) return;
+
+  // Normaliza o pathname para comparação: pega o último segmento sem query/hash
+  const pathname = (location.pathname || '/').replace(/\/+$/, ''); // remove trailing slash
+  const currentFile = pathname.split('/').pop() || 'index.html'; // ex: produtos.html
+
+  // Função utilitária para marcar um link como ativo/inativo
+  function setActiveLink(activeLink) {
+    links.forEach(link => {
+      // Classes que representam "ativo" no seu layout Tailwind
+      // Ajuste aqui se estiver usando outras classes
+      const activeClasses = ['bg-blue-50','text-blue-600','font-medium'];
+      // Remove active classes
+      link.classList.remove(...activeClasses);
+
+      // Icons: set default color classes
+      const svg = link.querySelector('svg');
+      const iicon = link.querySelector('i');
+      if (svg) {
+        // normal state
+        svg.classList.remove('text-blue-600');
+        svg.classList.add('text-gray-600');
+      }
+      if (iicon) {
+        iicon.classList.remove('text-blue-600');
+        iicon.classList.add('text-gray-600');
+      }
+    });
+
+    if (!activeLink) return;
+
+    // Add classes to active
+    activeClasses.forEach(c => activeLink.classList.add(c));
+
+    // Make icon colored for active
+    const svgA = activeLink.querySelector('svg');
+    const iA = activeLink.querySelector('i');
+    if (svgA) {
+      svgA.classList.remove('text-gray-600');
+      svgA.classList.add('text-blue-600');
+    }
+    if (iA) {
+      iA.classList.remove('text-gray-600');
+      iA.classList.add('text-blue-600');
+    }
+  }
+
+  // Tenta encontrar o link exato pela href (comparando último segmento)
+  let found = null;
+  for (const link of links) {
+    try {
+      const href = link.getAttribute('href') || '';
+      // remove query/hash e trailing slash
+      const u = href.split('?')[0].split('#')[0].replace(/\/+$/, '');
+      const last = u.split('/').pop() || u;
+      if (!last) continue;
+      if (last === currentFile) { found = link; break; }
+      // também aceita match quando pathname contém o href (útil pra /produtos ou /produtos.html)
+      if (pathname.endsWith(u)) { found = link; break; }
+    } catch (e) {
+      // ignore invalid hrefs
+    }
+  }
+
+  // Se não encontrou, tenta casar por texto (fallback)
+  if (!found) {
+    const lower = currentFile.toLowerCase();
+    for (const link of links) {
+      const text = (link.textContent || '').trim().toLowerCase();
+      if (text && lower.includes(text.split(' ')[0])) { found = link; break; }
+    }
+  }
+
+  // Aplica
+  setActiveLink(found);
+
+  // Observador por mudanças de URL via pushState/replaceState (single-page navs)
+  (function() {
+    const _wr = function(type) {
+      const orig = history[type];
+      return function() {
+        const rv = orig.apply(this, arguments);
+        // give browser a tick then re-evaluate
+        setTimeout(() => {
+          // recompute currentFile and re-run selection
+          const pathname2 = (location.pathname || '/').replace(/\/+$/, '');
+          const currentFile2 = pathname2.split('/').pop() || 'index.html';
+          let found2 = null;
+          for (const link of links) {
+            const href = link.getAttribute('href') || '';
+            const u = href.split('?')[0].split('#')[0].replace(/\/+$/, '');
+            const last = u.split('/').pop() || u;
+            if (last === currentFile2 || pathname2.endsWith(u)) { found2 = link; break; }
+          }
+          setActiveLink(found2);
+        }, 10);
+        return rv;
+      };
+    };
+    history.pushState = _wr('pushState');
+    history.replaceState = _wr('replaceState');
+    window.addEventListener('popstate', () => {
+      // back/forward pressed
+      setTimeout(() => {
+        const pathname2 = (location.pathname || '/').replace(/\/+$/, '');
+        const currentFile2 = pathname2.split('/').pop() || 'index.html';
+        let found2 = null;
+        for (const link of links) {
+          const href = link.getAttribute('href') || '';
+          const u = href.split('?')[0].split('#')[0].replace(/\/+$/, '');
+          const last = u.split('/').pop() || u;
+          if (last === currentFile2 || pathname2.endsWith(u)) { found2 = link; break; }
+        }
+        setActiveLink(found2);
+      }, 10);
+    });
+  })();
+})();
+</script>
+
+<body class="min-h-screen bg-gray-50 text-gray-800">
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-60 bg-white border-r border-gray-200 flex flex-col">
+      <div class="p-6 border-b border-gray-100">
+        <a href="/dashboard.html" class="flex items-center gap-3">
+          <div class="w-10 h-10 flex items-center justify-center text-white bg-blue-600 rounded-lg">
+            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 7h18v10H3zM7 3v4M17 3v4"/></svg>
+          </div>
+          <span class="text-xl font-bold">JmSound</span>
+        </a>
+      </div>
+
+      <nav class="flex-1 p-4">
+        <ul class="space-y-1">
+          <li><a href="/dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50">Dashboard</a></li>
+          <li><a href="/produtos.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50">Produtos</a></li>
+          <li><a href="/pedidos.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50">Pedidos</a></li>
+          <li><a href="/movimentacoes.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50">Movimentações</a></li>
+          <li><a href="/notificacoes.html" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-50 text-blue-600 font-medium">Alertas</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 flex flex-col overflow-auto">
+      <!-- Navbar -->
+      <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <div class="px-8 py-3 flex items-center justify-end gap-4">
+          <div class="relative" id="userMenuWrap">
+            <button id="userMenuBtn" class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100">
+              <svg class="w-8 h-8 text-gray-600" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-4.418 0-8 1.79-8 4v1h16v-1c0-2.21-3.582-4-8-4z"/></svg>
+            </button>
+            <div id="userMenu" class="hidden absolute right-0 mt-2 w-44 bg-white border border-gray-200 rounded-lg shadow-md py-2 z-20">
+              <button id="logoutBtn" class="w-full text-left px-4 py-2 hover:bg-gray-50">Sair</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="p-8 flex-1">
+        <div class="max-w-full mx-auto">
+          <h4 class="text-lg font-semibold text-gray-900 mb-6">
+            <span class="text-gray-500 font-medium">Estoque /</span> Alertas de Estoque Baixo
+          </h4>
+
+          <!-- Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white shadow-sm rounded-lg p-4 flex items-center gap-4">
+              <div class="p-3 rounded-md bg-red-100 text-red-600">
+                <!-- exclamation icon -->
+                <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/></svg>
+              </div>
+              <div>
+                <div class="text-sm text-gray-500">Total de Alertas</div>
+                <div id="totalAlertas" class="text-2xl font-semibold text-red-600">0</div>
+              </div>
+            </div>
+            <!-- You can add more summary cards here if desired -->
+          </div>
+
+          <!-- Table -->
+          <div class="bg-white shadow-sm rounded-lg overflow-hidden">
+            <div class="p-4 border-b border-gray-100 flex items-center justify-between">
+              <div>
+                <h5 class="font-medium text-gray-900">Produtos com Estoque Baixo</h5>
+                <div class="text-sm text-gray-500">Estoque atual ≤ Estoque mínimo</div>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Código</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Produto</th>
+                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Estoque Atual</th>
+                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Estoque Mínimo</th>
+                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Diferença</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Ação</th>
+                  </tr>
+                </thead>
+                <tbody id="alertasTableBody" class="bg-white divide-y divide-gray-100">
+                  <tr>
+                    <td colspan="7" class="px-6 py-8 text-center text-gray-500">Carregando...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <footer class="mt-6 text-sm text-gray-500">
+            © <script>document.write(new Date().getFullYear())</script> JmSound
+          </footer>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- scripts -->
+  <script src="/src/auth.js"></script>
+  <script>
+    // data
+    let alertas = [];
+
+    // safe escape
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#39;');
+    }
+
+    // Render table rows
+    function renderTable() {
+      const tbody = document.getElementById('alertasTableBody');
+      const totalEl = document.getElementById('totalAlertas');
+
+      if (!alertas || alertas.length === 0) {
+        totalEl.textContent = '0';
+        tbody.innerHTML = '<tr><td colspan="7" class="px-6 py-8 text-center text-green-600">✅ Nenhum alerta! Todos os produtos estão com estoque adequado.</td></tr>';
+        return;
+      }
+
+      totalEl.textContent = String(alertas.length);
+
+      tbody.innerHTML = alertas.map(p => {
+        const estoqueAtual = Number(p.quantidade_estoque ?? p.estoque ?? 0);
+        const minimo = Number(p.minimo_alerta ?? p.estoque_minimo ?? 0);
+        const diferenca = minimo - estoqueAtual;
+        const isZero = estoqueAtual === 0;
+
+        const statusHtml = isZero
+          ? `<span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded bg-red-100 text-red-800"><svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-12.728 12.728M18.364 18.364L5.636 5.636"/></svg>SEM ESTOQUE</span>`
+          : `<span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded bg-yellow-100 text-yellow-800"><svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>BAIXO</span>`;
+
+        const diferencaDisplay = diferenca > 0 ? `-${diferenca}` : '0';
+
+        return `
+          <tr class="${isZero ? 'bg-red-50' : 'bg-yellow-50'}">
+            <td class="px-6 py-3"><strong>${escapeHtml(p.codigo ?? p.Codigo ?? p.code ?? '')}</strong></td>
+            <td class="px-6 py-3">
+              <div class="flex flex-col">
+                <span class="font-medium">${escapeHtml(p.nome ?? p.Nome ?? p.name ?? '-')}</span>
+                <small class="text-gray-500">${escapeHtml(p.descricao ?? p.descricao_produto ?? p.description ?? '-')}</small>
+              </div>
+            </td>
+            <td class="px-6 py-3 text-right"><strong class="${isZero ? 'text-red-600' : 'text-yellow-700'}">${estoqueAtual}</strong></td>
+            <td class="px-6 py-3 text-right">${minimo}</td>
+            <td class="px-6 py-3 text-right"><span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded bg-red-100 text-red-800">${diferencaDisplay}</span></td>
+            <td class="px-6 py-3 text-center">${statusHtml}</td>
+            <td class="px-6 py-3 text-center">
+              <a href="/produtos.html" class="inline-flex items-center gap-2 px-3 py-1 rounded bg-blue-600 text-white text-sm hover:bg-blue-700">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4"/></svg>
+                Comprar
+              </a>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Load alertas from API (supports API.get fallback to fetch)
+    async function loadAlertas() {
+      try {
+        const resp = (typeof API !== 'undefined' && API.get) ? await API.get('/api/notificacoes') : await fetch('/api/notificacoes').then(r=>r.json());
+        alertas = resp?.data ?? resp ?? [];
+        renderTable();
+      } catch (err) {
+        console.error('Erro ao carregar alertas:', err);
+        const tbody = document.getElementById('alertasTableBody');
+        tbody.innerHTML = `<tr><td colspan="7" class="px-6 py-8 text-center text-red-500">Erro ao carregar alertas</td></tr>`;
+        document.getElementById('totalAlertas').textContent = '0';
+      }
+    }
+
+    // User menu
+    const userMenuBtn = document.getElementById('userMenuBtn');
+    const userMenu = document.getElementById('userMenu');
+    userMenuBtn?.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      userMenu.classList.toggle('hidden');
+    });
+    document.addEventListener('click', (ev) => {
+      if (!document.getElementById('userMenuWrap')?.contains(ev.target)) {
+        userMenu.classList.add('hidden');
+      }
+    });
+    document.getElementById('logoutBtn')?.addEventListener('click', () => {
+      if (typeof logout === 'function') logout();
+      else window.location.href = '/login.html';
+    });
+
+    document.addEventListener('DOMContentLoaded', loadAlertas);
+  </script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>JmSound - Movimentações</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #555; }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+  <div class="flex h-screen">
+    <!-- Sidebar (padronizado com o Dashboard) -->
+    <aside class="w-60 bg-white border-r border-gray-200 flex flex-col flex-shrink-0">
+      <!-- Logo -->
+      <div class="p-6 border-b border-gray-100">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+            </svg>
+          </div>
+          <span class="text-xl font-bold text-gray-900">JmSound</span>
+        </div>
+      </div>
+
+      <!-- Navigation (icons inline iguais ao dashboard) -->
+      <nav class="flex-1 p-4" aria-label="Sidebar">
+        <ul class="space-y-1">
+          <li>
+            <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 text-blue-600 bg-blue-50 rounded-lg font-medium">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              </svg>
+              <span>Dashboard</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="produtos.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+              <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+              </svg>
+              <span>Produtos</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="pedidos.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+              <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+              <span>Pedidos</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="movimentacoes.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+              <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+              </svg>
+              <span>Movimentações</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="notificacoes.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors relative">
+              <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+              </svg>
+              <span>Alertas</span>
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">3</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-auto">
+      <!-- Header -->
+      <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <div class="px-8 py-4 flex items-center justify-between">
+          <!-- Search -->
+          <div class="flex-1 max-w-md">
+            <div class="relative">
+              <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+              <input type="text" placeholder="Buscar por nome ou código..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+            </div>
+          </div>
+
+          <!-- Header actions -->
+          <div class="flex items-center gap-4">
+            <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+              </svg>
+              <span class="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">3</span>
+            </button>
+
+            <button class="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Page content -->
+      <div class="p-8">
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+          <h4 class="text-lg font-semibold text-gray-900 mb-4"><span class="text-gray-500 font-medium">Estoque /</span> Movimentações</h4>
+          <!-- table card -->
+          <div class="bg-white shadow-sm rounded-lg overflow-hidden">
+            <div class="p-4 border-b border-gray-100">
+              <h5 class="font-medium text-gray-900">Histórico de Movimentações</h5>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Produto</th>
+                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Quantidade</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pedido Ref.</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usuário</th>
+                  </tr>
+                </thead>
+                <tbody id="movimentacoesTableBody" class="bg-white divide-y divide-gray-100">
+                  <tr><td colspan="7" class="px-6 py-8 text-center text-gray-500">Carregando...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <footer class="mt-6 text-sm text-gray-500">© <script>document.write(new Date().getFullYear())</script> JmSound</footer>
+      </div>
+    </main>
+  </div>
+
+  <!-- App scripts -->
+  <script src="/src/auth.js"></script>
+  <script>
+    // Local stores
+    let movimentacoes = [];
+    let produtos = [];
+
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#39;');
+    }
+
+    function statusBadgeClasses(tipo) {
+      if (tipo === 'entrada') return { label: 'Entrada', classes: 'bg-green-100 text-green-800' };
+      if (tipo === 'saida' || tipo === 'saída') return { label: 'Saída', classes: 'bg-red-100 text-red-800' };
+      return { label: tipo || '-', classes: 'bg-gray-100 text-gray-800' };
+    }
+
+    async function loadData() {
+      try {
+        const movPromise = (typeof API !== 'undefined' && API.get) ? API.get('/api/movimentacoes') : fetch('/api/movimentacoes').then(r=>r.json());
+        const prodPromise = (typeof API !== 'undefined' && API.get) ? API.get('/api/produtos') : fetch('/api/produtos').then(r=>r.json());
+
+        const [movResp, prodResp] = await Promise.all([movPromise, prodPromise]);
+
+        movimentacoes = movResp?.data ?? movResp ?? [];
+        produtos = prodResp?.data ?? prodResp ?? [];
+
+        renderTable();
+      } catch (err) {
+        console.error('Erro ao carregar dados:', err);
+        const tbody = document.getElementById('movimentacoesTableBody');
+        tbody.innerHTML = `<tr><td colspan="7" class="px-6 py-8 text-center text-red-500">Erro ao carregar movimentações</td></tr>`;
+      }
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('movimentacoesTableBody');
+
+      if (!movimentacoes || movimentacoes.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="px-6 py-8 text-center text-gray-500">Nenhuma movimentação encontrada</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = movimentacoes.map(m => {
+        const produto = produtos.find(p => (p.id === m.produto_id) || (p.id === m.produtoId) || (p.ID === m.produto_id));
+        const produtoNome = produto ? (produto.nome ?? produto.Nome ?? produto.name ?? `ID ${m.produto_id}`) : `ID ${m.produto_id}`;
+        const tipoBadge = statusBadgeClasses(m.tipo);
+        const qtd = Number(m.quantidade ?? m.qtd ?? 0);
+        const referencia = m.referencia_pedido ? `#${escapeHtml(m.referencia_pedido)}` : '-';
+        const dataStr = m.data ? new Date(m.data).toLocaleString('pt-BR') : '-';
+        const usuario = escapeHtml(m.usuario ?? m.user ?? '-');
+
+        const tipoIcon = m.tipo === 'entrada'
+          ? `<svg class="w-4 h-4 inline-block mr-2 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V6m0 0l-4 4m4-4 4 4"/></svg>`
+          : `<svg class="w-4 h-4 inline-block mr-2 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v13m0 0l-4-4m4 4 4-4"/></svg>`;
+
+        return `
+          <tr>
+            <td class="px-6 py-3"><strong>#${escapeHtml(m.id)}</strong></td>
+            <td class="px-6 py-3">${tipoIcon}<span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded ${tipoBadge.classes}">${tipoBadge.label}</span></td>
+            <td class="px-6 py-3">${escapeHtml(produtoNome)}</td>
+            <td class="px-6 py-3 text-right"><strong>${qtd}</strong></td>
+            <td class="px-6 py-3">${referencia}</td>
+            <td class="px-6 py-3">${escapeHtml(dataStr)}</td>
+            <td class="px-6 py-3">${usuario}</td>
+          </tr>`;
+      }).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', loadData);
+  </script>
+
+  <!-- Sidebar active script (rode após o DOM) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const sidebarSelector = 'aside nav a';
+      const links = Array.from(document.querySelectorAll(sidebarSelector));
+      if (!links.length) return;
+
+      const normalizedPath = (location.pathname || '/').split(/[?#]/)[0].replace(/\/+$/, '');
+      const lastSegment = normalizedPath.split('/').pop() || '';
+
+      function normalizeHref(href) {
+        if (!href) return '';
+        try {
+          const u = new URL(href, location.origin);
+          return u.pathname.replace(/\/+$/, '');
+        } catch(e) {
+          return href.split(/[?#]/)[0].replace(/\/+$/, '');
+        }
+      }
+
+      function resetLinks() {
+        links.forEach(link => {
+          link.classList.remove('bg-blue-50','text-blue-600','font-medium');
+          const svg = link.querySelector('svg');
+          if (svg) {
+            svg.classList.remove('text-blue-600');
+            svg.classList.add('text-gray-600');
+          }
+        });
+      }
+
+      let found = null;
+      for (const link of links) {
+        const raw = link.getAttribute('href') || '';
+        const norm = normalizeHref(raw);
+        if (norm && (norm === normalizedPath || norm === ('/' + lastSegment) || norm === lastSegment)) {
+          found = link; break;
+        }
+        const normLast = norm.split('/').pop();
+        if (normLast && (normLast === lastSegment || normLast.replace(/\.html$/i,'') === lastSegment.replace(/\.html$/i,''))) {
+          found = link; break;
+        }
+      }
+
+      if (!found) {
+        const cur = lastSegment.toLowerCase();
+        for (const link of links) {
+          const txt = (link.textContent || '').trim().toLowerCase();
+          if (!txt) continue;
+          if (txt.includes(cur) || cur.includes(txt.split(' ')[0])) { found = link; break; }
+        }
+      }
+
+      resetLinks();
+      if (found) {
+        found.classList.add('bg-blue-50','text-blue-600','font-medium');
+        const svg = found.querySelector('svg');
+        if (svg) { svg.classList.remove('text-gray-600'); svg.classList.add('text-blue-600'); }
+      }
+    });
+  </script>
+</body>
+</html>

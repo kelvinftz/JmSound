@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>JmSound - Pedidos</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #555; }
+  </style>
+</head>
+
+<script>
+/*
+  Sidebar Active Helper
+  - Detecta automaticamente o link do sidebar que corresponde ao caminho atual (location.pathname)
+  - Aplica classes "ativo" (bg + text) ao link correto
+  - Remove classes dos demais links
+  - Garante cor nos ícones (SVG inline ou <i class="fas ...">) para manter ícones visíveis
+  HOW TO: cole este script em todas as páginas (antes do </body>)
+*/
+
+(function () {
+  // Seletor dos links do sidebar - ajuste se sua estrutura for diferente
+  const sidebarSelector = 'aside nav a'; // alvo: <aside> <nav> <a href="...">
+  const links = Array.from(document.querySelectorAll(sidebarSelector));
+  if (!links.length) return;
+
+  // Normaliza o pathname para comparação: pega o último segmento sem query/hash
+  const pathname = (location.pathname || '/').replace(/\/+$/, ''); // remove trailing slash
+  const currentFile = pathname.split('/').pop() || 'index.html'; // ex: produtos.html
+
+  // Função utilitária para marcar um link como ativo/inativo
+  function setActiveLink(activeLink) {
+    links.forEach(link => {
+      // Classes que representam "ativo" no seu layout Tailwind
+      // Ajuste aqui se estiver usando outras classes
+      const activeClasses = ['bg-blue-50','text-blue-600','font-medium'];
+      // Remove active classes
+      link.classList.remove(...activeClasses);
+
+      // Icons: set default color classes
+      const svg = link.querySelector('svg');
+      const iicon = link.querySelector('i');
+      if (svg) {
+        // normal state
+        svg.classList.remove('text-blue-600');
+        svg.classList.add('text-gray-600');
+      }
+      if (iicon) {
+        iicon.classList.remove('text-blue-600');
+        iicon.classList.add('text-gray-600');
+      }
+    });
+
+    if (!activeLink) return;
+
+    // Add classes to active
+    activeClasses.forEach(c => activeLink.classList.add(c));
+
+    // Make icon colored for active
+    const svgA = activeLink.querySelector('svg');
+    const iA = activeLink.querySelector('i');
+    if (svgA) {
+      svgA.classList.remove('text-gray-600');
+      svgA.classList.add('text-blue-600');
+    }
+    if (iA) {
+      iA.classList.remove('text-gray-600');
+      iA.classList.add('text-blue-600');
+    }
+  }
+
+  // Tenta encontrar o link exato pela href (comparando último segmento)
+  let found = null;
+  for (const link of links) {
+    try {
+      const href = link.getAttribute('href') || '';
+      // remove query/hash e trailing slash
+      const u = href.split('?')[0].split('#')[0].replace(/\/+$/, '');
+      const last = u.split('/').pop() || u;
+      if (!last) continue;
+      if (last === currentFile) { found = link; break; }
+      // também aceita match quando pathname contém o href (útil pra /produtos ou /produtos.html)
+      if (pathname.endsWith(u)) { found = link; break; }
+    } catch (e) {
+      // ignore invalid hrefs
+    }
+  }
+
+  // Se não encontrou, tenta casar por texto (fallback)
+  if (!found) {
+    const lower = currentFile.toLowerCase();
+    for (const link of links) {
+      const text = (link.textContent || '').trim().toLowerCase();
+      if (text && lower.includes(text.split(' ')[0])) { found = link; break; }
+    }
+  }
+
+  // Aplica
+  setActiveLink(found);
+
+  // Observador por mudanças de URL via pushState/replaceState (single-page navs)
+  (function() {
+    const _wr = function(type) {
+      const orig = history[type];
+      return function() {
+        const rv = orig.apply(this, arguments);
+        // give browser a tick then re-evaluate
+        setTimeout(() => {
+          // recompute currentFile and re-run selection
+          const pathname2 = (location.pathname || '/').replace(/\/+$/, '');
+          const currentFile2 = pathname2.split('/').pop() || 'index.html';
+          let found2 = null;
+          for (const link of links) {
+            const href = link.getAttribute('href') || '';
+            const u = href.split('?')[0].split('#')[0].replace(/\/+$/, '');
+            const last = u.split('/').pop() || u;
+            if (last === currentFile2 || pathname2.endsWith(u)) { found2 = link; break; }
+          }
+          setActiveLink(found2);
+        }, 10);
+        return rv;
+      };
+    };
+    history.pushState = _wr('pushState');
+    history.replaceState = _wr('replaceState');
+    window.addEventListener('popstate', () => {
+      // back/forward pressed
+      setTimeout(() => {
+        const pathname2 = (location.pathname || '/').replace(/\/+$/, '');
+        const currentFile2 = pathname2.split('/').pop() || 'index.html';
+        let found2 = null;
+        for (const link of links) {
+          const href = link.getAttribute('href') || '';
+          const u = href.split('?')[0].split('#')[0].replace(/\/+$/, '');
+          const last = u.split('/').pop() || u;
+          if (last === currentFile2 || pathname2.endsWith(u)) { found2 = link; break; }
+        }
+        setActiveLink(found2);
+      }, 10);
+    });
+  })();
+})();
+</script>
+
+
+
+<body class="min-h-screen bg-gray-50 text-gray-800">
+
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-60 bg-white border-r border-gray-200 flex flex-col">
+      <div class="p-6 border-b border-gray-100">
+        <a href="/dashboard.html" class="flex items-center gap-3">
+          <div class="w-10 h-10 flex items-center justify-center text-white bg-blue-600 rounded-lg">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M5 11V7h14v4h2v8H3v-8h2z"/></svg>
+          </div>
+          <span class="text-xl font-bold">JmSound</span>
+        </a>
+      </div>
+
+      <nav class="flex-1 p-4">
+        <ul class="space-y-1">
+          <li><a href="/dashboard.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50"><i class="fas fa-chart-line"></i><span>Dashboard</span></a></li>
+          <li><a href="/produtos.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50"><i class="fas fa-box"></i><span>Produtos</span></a></li>
+          <li><a href="/pedidos.html" class="flex items-center gap-3 px-4 py-3 rounded-lg bg-blue-50 text-blue-600 font-medium"><i class="fas fa-shopping-cart"></i><span>Pedidos</span></a></li>
+          <li><a href="/movimentacoes.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50"><i class="fas fa-exchange-alt"></i><span>Movimentações</span></a></li>
+          <li><a href="/notificacoes.html" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50"><i class="fas fa-bell"></i><span>Alertas</span></a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 flex flex-col overflow-auto">
+      <!-- Navbar -->
+      <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <div class="px-8 py-3 flex items-center justify-end gap-4">
+          <!-- User menu simplified -->
+          <div class="relative" id="userMenuWrap">
+            <button id="userMenuBtn" class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100">
+              <i class="fas fa-user-circle text-2xl"></i>
+            </button>
+            <div id="userMenu" class="hidden absolute right-0 mt-2 w-44 bg-white border border-gray-200 rounded-lg shadow-md py-2 z-20">
+              <button id="logoutBtn" class="w-full text-left px-4 py-2 hover:bg-gray-50">Sair</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="p-8 flex-1">
+        <div class="max-w-full mx-auto">
+          <h4 class="text-lg font-semibold text-gray-900 mb-6"><span class="text-gray-500 font-medium">Estoque /</span> Pedidos</h4>
+
+          <!-- Filters & Actions -->
+          <div class="bg-white shadow-sm rounded-lg mb-6 p-4">
+            <div class="flex flex-col md:flex-row items-center gap-4">
+              <div class="flex gap-2" role="group" aria-label="Filtro pedidos">
+                <button type="button" id="btn-filtro-todos" class="px-4 py-2 rounded-md bg-blue-600 text-white" onclick="filterPedidos('','event')">Todos</button>
+                <button type="button" id="btn-filtro-compra" class="px-4 py-2 rounded-md bg-white border" onclick="filterPedidos('compra','event')">Compras</button>
+                <button type="button" id="btn-filtro-venda" class="px-4 py-2 rounded-md bg-white border" onclick="filterPedidos('venda','event')">Vendas</button>
+              </div>
+
+              <div class="ml-auto">
+                <button class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" onclick="openModalCreate()">
+                  <i class="fas fa-plus"></i> Novo
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="bg-white shadow-sm rounded-lg overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Itens</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Observações</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="pedidosTableBody" class="bg-white divide-y divide-gray-100">
+                  <tr>
+                    <td colspan="7" class="px-6 py-8 text-center text-gray-500">Carregando...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <footer class="mt-6 text-sm text-gray-500">
+            © <script>document.write(new Date().getFullYear())</script> JmSound
+          </footer>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal (Tailwind) -->
+  <div id="pedidoModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 px-4">
+    <div class="bg-white rounded-lg shadow-xl max-w-3xl w-full overflow-hidden">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <h3 id="pedidoModalTitle" class="text-lg font-semibold">Novo Pedido</h3>
+        <button aria-label="Fechar" onclick="closePedidoModal()" class="text-gray-500 hover:text-gray-700">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <form id="pedidoForm" class="px-6 py-4" onsubmit="return handlePedidoFormSubmit(event)">
+        <div class="text-sm text-gray-600 mb-4"><small>Funcionalidade completa de pedidos disponível</small></div>
+        <!-- aqui você pode adicionar inputs do pedido -->
+        <div class="flex justify-end gap-3 border-t border-gray-100 pt-4">
+          <button type="button" onclick="closePedidoModal()" class="px-4 py-2 bg-gray-100 rounded-md hover:bg-gray-200">Fechar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Your app scripts: keep auth or API helpers -->
+  <script src="/src/auth.js"></script>
+  <script>
+    // Data store
+    let pedidos = [];
+    let currentFilter = '';
+
+    // Utils: badge color based on status
+    function badgeForStatus(status) {
+      // return {html, classes}
+      const map = {
+        pendente: { label: 'Pendente', classes: 'bg-yellow-100 text-yellow-800' },
+        pronto:   { label: 'Pronto',   classes: 'bg-green-100 text-green-800' },
+        cancelado:{ label: 'Cancelado',classes: 'bg-red-100 text-red-800' }
+      };
+      return map[status] || { label: status || '-', classes: 'bg-gray-100 text-gray-800' };
+    }
+
+    async function loadPedidos() {
+      try {
+        const url = currentFilter ? `/api/pedidos?tipo=${currentFilter}` : '/api/pedidos';
+        // Assumo que API.get está definido em /src/auth.js ou similar
+        const response = (typeof API !== 'undefined' && API.get) ? await API.get(url) : await fetch(url).then(r=>r.json());
+        pedidos = response.data || response || [];
+        renderTable();
+      } catch (error) {
+        console.error('Error loading pedidos:', error);
+        const tbody = document.getElementById('pedidosTableBody');
+        tbody.innerHTML = `<tr><td colspan="7" class="px-6 py-8 text-center text-red-500">Erro ao carregar pedidos</td></tr>`;
+      }
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('pedidosTableBody');
+      if (!pedidos || pedidos.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="px-6 py-8 text-center text-gray-500">Nenhum pedido encontrado</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = pedidos.map(p => {
+        const statusBadge = badgeForStatus(p.status);
+        return `
+          <tr>
+            <td class="px-6 py-3"><strong>#${p.id}</strong></td>
+            <td class="px-6 py-3">${escapeHtml(p.tipo)}</td>
+            <td class="px-6 py-3">${p.data ? new Date(p.data).toLocaleDateString('pt-BR') : '-'}</td>
+            <td class="px-6 py-3">${p.itens ? p.itens.length : 0} item(ns)</td>
+            <td class="px-6 py-3"><span class="inline-flex items-center px-2 py-1 text-xs font-medium rounded ${statusBadge.classes}">${statusBadge.label}</span></td>
+            <td class="px-6 py-3"><small class="text-gray-600">${escapeHtml(p.observacoes || '-')}</small></td>
+            <td class="px-6 py-3 text-center">
+              <button class="inline-flex items-center gap-2 px-2 py-1 rounded bg-gray-100 hover:bg-gray-200 text-sm" onclick="changeStatus(${p.id})" title="Alternar status">
+                <i class="fas fa-check"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Safe escape for text insertion
+    function escapeHtml(str) {
+      if (!str && str !== 0) return '';
+      return String(str)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#39;');
+    }
+
+    // Filter buttons — note: we pass the event param when calling from onclick
+    function filterPedidos(tipo, evt) {
+      currentFilter = tipo || '';
+      // update active button styles
+      const btnTodos = document.getElementById('btn-filtro-todos');
+      const btnCompra = document.getElementById('btn-filtro-compra');
+      const btnVenda = document.getElementById('btn-filtro-venda');
+      [btnTodos, btnCompra, btnVenda].forEach(b => {
+        b.classList.remove('bg-blue-600', 'text-white');
+        b.classList.add('bg-white', 'border');
+      });
+      if (tipo === 'compra') {
+        btnCompra.classList.remove('bg-white','border'); btnCompra.classList.add('bg-blue-600','text-white');
+      } else if (tipo === 'venda') {
+        btnVenda.classList.remove('bg-white','border'); btnVenda.classList.add('bg-blue-600','text-white');
+      } else {
+        btnTodos.classList.remove('bg-white','border'); btnTodos.classList.add('bg-blue-600','text-white');
+      }
+      loadPedidos();
+    }
+
+    // Modal handlers
+    const pedidoModalEl = document.getElementById('pedidoModal');
+    function openModalCreate() {
+      document.getElementById('pedidoForm')?.reset();
+      document.getElementById('pedidoModalTitle').textContent = 'Novo Pedido';
+      pedidoModalEl.classList.remove('hidden'); pedidoModalEl.classList.add('flex');
+    }
+    function closePedidoModal() {
+      pedidoModalEl.classList.add('hidden'); pedidoModalEl.classList.remove('flex');
+    }
+    function handlePedidoFormSubmit(e) {
+      e.preventDefault();
+      // If you implement saving in another script, call it here.
+      if (typeof savePedidoFromForm === 'function') {
+        savePedidoFromForm();
+      } else {
+        console.warn('savePedidoFromForm não implementado. Implementar lógica em /src/pedidos.js');
+        closePedidoModal();
+      }
+      return false;
+    }
+
+    // Change status (toggle pendente <-> pronto)
+    async function changeStatus(id) {
+      const pedido = pedidos.find(p => p.id === id);
+      if (!pedido) return;
+      const original = pedido.status;
+      pedido.status = pedido.status === 'pendente' ? 'pronto' : 'pendente';
+      try {
+        if (typeof API !== 'undefined' && API.put) {
+          await API.put(`/api/pedidos/${id}`, pedido);
+        } else {
+          await fetch(`/api/pedidos/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(pedido)
+          });
+        }
+        loadPedidos();
+      } catch (err) {
+        console.error('Erro ao atualizar status:', err);
+        pedido.status = original;
+        alert('Erro ao atualizar status: ' + (err.message || err));
+      }
+    }
+
+    // User menu toggle & logout
+    const userMenuBtn = document.getElementById('userMenuBtn');
+    const userMenu = document.getElementById('userMenu');
+    userMenuBtn?.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      userMenu.classList.toggle('hidden');
+    });
+    document.addEventListener('click', (ev) => {
+      if (!document.getElementById('userMenuWrap')?.contains(ev.target)) {
+        userMenu.classList.add('hidden');
+      }
+    });
+    document.getElementById('logoutBtn')?.addEventListener('click', () => {
+      if (typeof logout === 'function') logout();
+      else window.location.href = '/login.html';
+    });
+
+    // Load data on DOM ready
+    document.addEventListener('DOMContentLoaded', () => {
+      filterPedidos(''); // load default (todos)
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="pt-BR" class="light-style">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>JmSound - Produtos</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #555; }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50 text-gray-800">
+
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-60 bg-white border-r border-gray-200 flex flex-col">
+      <div class="p-6 border-b border-gray-100">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+            </svg>
+          </div>
+          <a href="dashboard.html" class="text-xl font-bold text-gray-900">JmSound</a>
+        </div>
+      </div>
+
+      <nav class="flex-1 p-4">
+        <ul class="space-y-1">
+          <li>
+            <a href="dashboard.html" class="flex items-center gap-3 px-4 py-3 text-blue-600 bg-blue-50 rounded-lg font-medium">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              </svg>
+              <span>Dashboard</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="produtos.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+              </svg>
+              <span>Produtos</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="pedidos.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+              <span>Pedidos</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="movimentacoes.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+              </svg>
+              <span>Movimentações</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="notificacoes.html" class="flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors relative">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+              </svg>
+              <span>Alertas</span>
+              <span class="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">3</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 flex flex-col overflow-auto">
+      <!-- Navbar -->
+      <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+        <div class="px-8 py-4 flex items-center justify-between">
+          <div class="flex-1 max-w-md">
+            <div class="relative">
+              <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+              <input id="searchInput" type="text" placeholder="Buscar por nome ou código..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+              </svg>
+              <span class="absolute top-1 right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">3</span>
+            </button>
+
+            <!-- User dropdown -->
+            <div class="relative" id="userMenuWrap">
+              <button id="userMenuBtn" class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-100" aria-expanded="false">
+                <div class="w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center text-gray-600">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM4 20c0-2.21 3.582-4 8-4s8 1.79 8 4v1H4v-1z"/></svg>
+                </div>
+              </button>
+
+              <div id="userMenu" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg py-2 z-20">
+                <div class="px-4 py-2">
+                  <div class="font-semibold" id="userName">Admin</div>
+                  <div class="text-xs text-gray-500">Administrador</div>
+                </div>
+                <div class="border-t border-gray-100"></div>
+                <button id="logoutBtn" class="w-full text-left px-4 py-2 hover:bg-gray-50">
+                  Sair
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content -->
+      <div class="p-8 flex-1">
+        <div class="max-w-full mx-auto">
+          <h4 class="text-lg font-semibold text-gray-900 mb-6">
+            <span class="text-gray-500 font-medium">Estoque /</span> Produtos
+          </h4>
+
+          <!-- Filters & Actions -->
+          <div class="bg-white shadow-sm rounded-lg mb-6">
+            <div class="p-4">
+              <div class="flex flex-col md:flex-row items-center gap-4">
+                <div class="flex-1 w-full md:w-2/3">
+                  <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden">
+                    <div class="px-3 text-gray-400">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                      </svg>
+                    </div>
+                    <input id="searchInputDuplicate" type="text" placeholder="Buscar por nome ou código..." class="w-full py-2 px-3 focus:outline-none" />
+                  </div>
+                </div>
+
+                <div class="w-full md:w-1/3 text-right">
+                  <button onclick="openModalCreate()" class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Novo Produto
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Products Table -->
+          <div class="bg-white shadow-sm rounded-lg overflow-hidden">
+            <div class="p-4 border-b border-gray-100">
+              <h5 class="font-medium text-gray-900">Lista de Produtos</h5>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200 table-auto">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Código</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
+                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Valor Unit.</th>
+                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Estoque</th>
+                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Mínimo</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="produtosTableBody" class="bg-white divide-y divide-gray-100">
+                  <tr>
+                    <td colspan="7" class="px-6 py-8 text-center">
+                      <div class="animate-spin inline-block w-8 h-8 border-4 border-gray-300 border-t-transparent rounded-full"></div>
+                      <div class="mt-2 text-gray-500">Carregando...</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <footer class="mt-6 text-sm text-gray-500">
+            © <script>document.write(new Date().getFullYear())</script> JmSound Auto Elétrica
+          </footer>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal (Tailwind) -->
+  <div id="produtoModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 px-4">
+    <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full overflow-hidden">
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <h3 id="produtoModalTitle" class="text-lg font-semibold">Novo Produto</h3>
+        <button aria-label="Fechar" onclick="closeModal()" class="text-gray-500 hover:text-gray-700">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <form id="produtoForm" class="px-6 py-4" onsubmit="return handleProdutoFormSubmit(event)">
+        <input type="hidden" id="produtoId" />
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="produtoNome" class="block text-sm font-medium text-gray-700">Nome *</label>
+            <input id="produtoNome" type="text" required class="mt-1 block w-full rounded-md border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+
+          <div>
+            <label for="produtoCodigo" class="block text-sm font-medium text-gray-700">Código *</label>
+            <input id="produtoCodigo" type="text" required class="mt-1 block w-full rounded-md border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+
+          <div>
+            <label for="produtoValor" class="block text-sm font-medium text-gray-700">Valor Unitário *</label>
+            <div class="mt-1 flex rounded-md shadow-sm">
+              <span class="inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-200 bg-gray-50 text-gray-500">R$</span>
+              <input id="produtoValor" type="number" step="0.01" min="0" required class="flex-1 block w-full rounded-r-md border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+          </div>
+
+          <div>
+            <label for="produtoEstoque" class="block text-sm font-medium text-gray-700">Qtd. Estoque *</label>
+            <input id="produtoEstoque" type="number" min="0" required class="mt-1 block w-full rounded-md border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+
+          <div>
+            <label for="produtoMinimo" class="block text-sm font-medium text-gray-700">Estoque Mínimo *</label>
+            <input id="produtoMinimo" type="number" min="0" required class="mt-1 block w-full rounded-md border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+
+          <div class="md:col-span-2">
+            <label for="produtoDescricao" class="block text-sm font-medium text-gray-700">Descrição</label>
+            <textarea id="produtoDescricao" rows="3" class="mt-1 block w-full rounded-md border border-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+          </div>
+        </div>
+
+        <div class="mt-4 flex justify-end gap-3 border-t border-gray-100 pt-4">
+          <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-100 rounded-md hover:bg-gray-200">Cancelar</button>
+          <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Keep your existing app scripts (they'll run after modal & DOM exist). No Bootstrap JS -->
+  <script>
+    // Small helpers to open/close modal and handle form submit delegation
+    const produtoModalEl = document.getElementById('produtoModal');
+    const produtoModalTitle = document.getElementById('produtoModalTitle');
+
+    function openModalCreate() {
+      document.getElementById('produtoForm').reset();
+      document.getElementById('produtoId').value = '';
+      produtoModalTitle.textContent = 'Novo Produto';
+      produtoModalEl.classList.remove('hidden');
+      produtoModalEl.classList.add('flex');
+    }
+
+    function openModalEdit() {
+      // If your produtos.js wants to call openModalEdit(id) you can adapt.
+      // Example: openModalEdit(123) -> produtos.js must fill form fields then call this function.
+      produtoModalTitle.textContent = 'Editar Produto';
+      produtoModalEl.classList.remove('hidden');
+      produtoModalEl.classList.add('flex');
+    }
+
+    function closeModal() {
+      produtoModalEl.classList.add('hidden');
+      produtoModalEl.classList.remove('flex');
+    }
+
+    // Prevent default and let produtos.js handle submit if it binds to the form.
+    // If produtos.js expects a normal submit event, remove this handler and let it handle.
+    function handleProdutoFormSubmit(e) {
+      e.preventDefault();
+      // If your /src/produtos.js has a function like saveProdutoFromForm(), call it here.
+      // Try to call a global function if defined there.
+      if (typeof saveProdutoFromForm === 'function') {
+        saveProdutoFromForm(); // produtos.js should implement this
+      } else {
+        // fallback: close modal and log form data (so nothing breaks)
+        console.warn('saveProdutoFromForm not found — formulário não enviado. Implementar em /src/produtos.js');
+        closeModal();
+      }
+      return false;
+    }
+
+    // User menu toggle
+    const userMenuBtn = document.getElementById('userMenuBtn');
+    const userMenu = document.getElementById('userMenu');
+
+    userMenuBtn?.addEventListener('click', () => {
+      userMenu.classList.toggle('hidden');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!document.getElementById('userMenuWrap')?.contains(e.target)) {
+        userMenu.classList.add('hidden');
+      }
+    });
+
+    // Logout button (calls function from /src/auth.js if exists)
+    const logoutBtn = document.getElementById('logoutBtn');
+    logoutBtn?.addEventListener('click', () => {
+      if (typeof logout === 'function') {
+        logout();
+      } else {
+        // default fallback: redirect to /login
+        window.location.href = '/login.html';
+      }
+    });
+  </script>
+
+  <!-- Your app scripts (preserve them) -->
+  <script src="/src/auth.js"></script>
+  <script src="/src/produtos.js"></script>
+</body>
+</html>
